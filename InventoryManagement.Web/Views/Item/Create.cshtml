@@ -1,0 +1,92 @@
+﻿@model ItemViewModel
+@{
+    ViewData["Title"] = "Create Item";
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Create Item</h1>
+            </div><!-- /.col -->
+            @*<div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active">Create Item</li>
+                </ol>
+            </div>*@<!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <form class="form" novalidate enctype="multipart/form-data" method="Post" asp-area="" asp-controller="Item"
+                    asp-action="Create" asp-antiforgery="true">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Name" id="name" placeholder="Enter Item Name">
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-danger" asp-validation-for="Name"></span>
+                        </div>
+                        <br />
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-10">
+                                <select asp-for="ItemGroup" asp-items="@ViewBag.ItemGroup" class="form-control">
+                                    <option value="">Select Category</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span class="text-danger" asp-validation-for="ItemGroup"></span>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Price</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" asp-for="Price" id="price">
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-danger" asp-validation-for="Price"></span>
+                        </div>
+                        <br />
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Status</label>
+                            <div class="col-sm-10">
+                                <select asp-for="Status" asp-items="@ViewBag.Status" class="form-control"></select>
+                            </div>
+                            <div>
+                                <span class="text-danger" asp-validation-for="Status"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-info">Create</button>
+                        <a asp-action="Index" asp-controller="Home"
+                           class="btn btn-default float-right">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+}
+

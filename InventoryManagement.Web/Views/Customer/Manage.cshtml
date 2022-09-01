@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewData["Title"] = "Manage";
+}
+
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Customer" )'" value="Create Customer" />
+            </div><!-- /.col -->
+            @*<div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+        <li class="breadcrumb-item active">Create Item</li>
+        </ol>
+        </div>*@<!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <table id="DataGridTable"  class="table table-striped table-bordered table-condensed table-hover table-responsive" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="text-center">sl</th>
+                            <th class="text-center">Full Name</th>
+                            <th class="text-center">Mobile</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Gender</th>
+                            <th class="text-center">Address</th>
+                            <th class="text-center">District</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript">
+
+    function dataTableRender() {
+        var pageSize = 50;
+
+        $('#DataGridTable').DataTable({
+            destroy: true,
+            "processing": true,
+            searching: false,
+            serverSide: true,
+            "pagination": true,
+            "sorting": true,
+            "scrollX": true,
+            "scrollY": '60vh',
+            "bLengthChange": true,
+            "bSort": false,
+            "aoColumnDefs": [
+                {
+                    "bSortable": false,
+                    "aTargets": ["no-sort"]
+                },
+                //{ "className": "text-left", "aTargets": [2, 3, 4] }
+            ],
+            order: [[0, "asc"]],
+            //"iDisplayLength": pageSize,
+            //order: [[0, "ASC"]],
+            ajax: {
+                url: '/Customer/ManageAjaxDataTable',
+                type: 'POST',
+                data: function (d) { 
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        dataTableRender();
+    });
+</script>
+}
+

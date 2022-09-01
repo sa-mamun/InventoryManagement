@@ -16,5 +16,10 @@ namespace InventoryManagement.Web.Services
             _customerRepository.Add(customer);
             _customerRepository.SaveChanges();
         }
+
+        public (IList<Customer> Customers, int Total, int TotalFilter) LoadAll()
+        {
+            return _customerRepository.Get<Customer>(x => x, x => x.Status == EntityStatus.Active, null, null, 1, 10, true);
+        }
     }
 }

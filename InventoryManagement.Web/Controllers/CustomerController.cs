@@ -16,7 +16,7 @@ namespace InventoryManagement.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IDistrictService _districtService;
         private readonly ICustomerService _customerService;
-         
+
         public CustomerController(ILogger<HomeController> logger, ICustomerService customerService, IDistrictService districtService)
         {
             _logger = logger;
@@ -51,10 +51,10 @@ namespace InventoryManagement.Web.Controllers
                     str.Add(item.FullName);
                     str.Add(item.Mobile);
                     str.Add(item.Email);
-                   str.Add(InventoryHelper.GetEmumIdToValue<Gender>((int)item.Gender));
+                    str.Add(InventoryHelper.GetEmumIdToValue<Gender>((int)item.Gender));
                     str.Add(item.Address);
-                    string districtName=districts.Where (x => x.Id.Equals(item.DistrictId)).First().Name;
-                    str.Add(districtName); 
+                    string districtName = districts.Where(x => x.Id.Equals(item.DistrictId)).First().Name;
+                    str.Add(districtName);
                     str.Add("-");
 
                     data.Add(str);
@@ -109,7 +109,7 @@ namespace InventoryManagement.Web.Controllers
                         Mobile = model.Mobile,
                         Email = model.Email,
                         Gender = model.Gender,
-                        Address = model.Address, 
+                        Address = model.Address,
                         DistrictId = model.DistrictId,
                         CreateBy = userId,
                         Status = model.Status

@@ -11,7 +11,7 @@ namespace InventoryManagement.Web.Models.Items
         public Gender Gender { get; set; }
         public string Address { get; set; }
         public long DistrictId { get; set; }
-        public District District { get; set; }        
+        //public District District { get; set; }        
         public int Status { get; set; }
     }
 }

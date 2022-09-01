@@ -28,10 +28,14 @@ namespace InventoryManagement.Web
                 .WithParameter("migrationAssemblyName", _migrationAssemblyName)
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<ItemService>().As<IItemService>()
-                .InstancePerLifetimeScope();
-            builder.RegisterType<ItemRepository>().As<IItemRepository>()
-                .InstancePerLifetimeScope();
+            builder.RegisterType<ItemService>().As<IItemService>().InstancePerLifetimeScope();
+            builder.RegisterType<ItemRepository>().As<IItemRepository>().InstancePerLifetimeScope();
+
+            builder.RegisterType<CustomerService>().As<ICustomerService>().InstancePerLifetimeScope();
+            builder.RegisterType<CustomerRepository>().As<ICustomerRepository>().InstancePerLifetimeScope();
+
+            builder.RegisterType<DistrictService>().As<IDistrictService>().InstancePerLifetimeScope();
+            builder.RegisterType<DistrictRepository>().As<IDistrictRepository>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

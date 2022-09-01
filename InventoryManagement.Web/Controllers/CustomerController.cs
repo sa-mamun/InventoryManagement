@@ -14,21 +14,25 @@ namespace InventoryManagement.Web.Controllers
     public class CustomerController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IItemService _itemService;
-        //private readonly IDistrictService _districtService;
+        private readonly IDistrictService _districtService;
+        private readonly ICustomerService _customerService;
 
 
-        public CustomerController(ILogger<HomeController> logger, IItemService itemService)
+        public CustomerController(ILogger<HomeController> logger, ICustomerService customerService, IDistrictService districtService)
         {
             _logger = logger;
-            _itemService = itemService;
+
+            _districtService = districtService;
+            _customerService = customerService;
         }
+
         public IActionResult Create()
         {
             try
             {
-
-                ViewBag.District = new SelectList(InventoryHelper.LoadEmumToDictionary<ItemGroup>(), "Key", "Value");
+                var districtList = _districtService.LoadAll();
+                List<District> districts = districtList.Districts.ToList();
+                ViewBag.District = new SelectList(districts, "Id", "Name");
                 ViewBag.Gender = new SelectList(InventoryHelper.LoadEmumToDictionary<Gender>(), "Key", "Value");
                 ViewBag.Status = new SelectList(InventoryHelper.LoadEmumToDictionary<Status>(), "Key", "Value");
             }
@@ -42,23 +46,26 @@ namespace InventoryManagement.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ItemViewModel model)
+        public IActionResult Create(CustomerViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    var item = new Item
+                    var item = new Customer
                     {
-                        Name = model.Name,
-                        ItemGroup = (ItemGroup)model.ItemGroup,
-                        Price = model.Price,
+                        FullName = model.FullName,
+                        Mobile = model.Mobile,
+                        Email = model.Email,
+                        Gender = model.Gender,
+                        Address = model.Address, 
+                        DistrictId = model.DistrictId,
                         CreateBy = userId,
                         Status = model.Status
                     };
-                    
-                    _itemService.Create(item);
+
+                    _customerService.Create(item);
 
                     return RedirectToAction(nameof(Create));
                 }

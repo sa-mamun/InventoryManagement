@@ -17,10 +17,10 @@ namespace InventoryManagement.Web.Services
             _districtRepository.Add(item);
             _districtRepository.SaveChanges();
         }
-        //public List<District> LoadDistrict(District item)
-        //{
-        //    _districtRepository.Get(item);
-        //    _districtRepository.SaveChanges();
-        //}
+
+        public (IList<District> Districts, int Total, int TotalFilter) LoadAll()
+        {
+            return _districtRepository.Get<District>(x => x, x => x.Status == EntityStatus.Active, null, null, 1, 10, true);
+        }
     }
 }

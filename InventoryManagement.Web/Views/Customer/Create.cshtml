@@ -1,0 +1,147 @@
+﻿@model CustomerViewModel
+@{
+    ViewData["Title"] = "Create Customer";
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Create Customer</h1>
+            </div><!-- /.col -->
+            @*<div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active">Create Item</li>
+                </ol>
+            </div>*@<!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <form class="form" novalidate enctype="multipart/form-data" method="Post" asp-area="" asp-controller="Item"
+                    asp-action="Create" asp-antiforgery="true">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="card-body">
+                       
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">FullName</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="FullName" id="name" placeholder="Enter Full Name">
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-danger" asp-validation-for="FullName"></span>
+                        </div>
+                        <br />
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Mobile</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Mobile" id="name" placeholder="Enter Mobile">
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-danger" asp-validation-for="Mobile"></span>
+                        </div>
+                        <br />
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Email" id="name" placeholder="Enter Email">
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
+                        <br />
+
+
+                        @*<div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Gender</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Gender" id="name" placeholder="Select Gender">
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-danger" asp-validation-for="Gender"></span>
+                        </div>*@
+                       
+                         <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Gender</label>
+                            <div class="col-sm-10">
+                                <select asp-for="Gender" asp-items="@ViewBag.Gender" class="form-control">
+                                      <option value="">Select Gender</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span class="text-danger" asp-validation-for="Gender"></span>
+                            </div>
+                        </div> 
+                        <br />
+
+
+                         <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Address</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Address" id="name" placeholder="Enter Address">
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-danger" asp-validation-for="Address"></span>
+                        </div>
+                        <br />
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">District</label>
+                            <div class="col-sm-10">
+                                <select asp-for="District" asp-items="@ViewBag.District" class="form-control">
+                                    <option value="">Select District</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span class="text-danger" asp-validation-for="District"></span>
+                            </div>
+                        </div>
+                        <br />
+                         
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Status</label>
+                            <div class="col-sm-10">
+                                <select asp-for="Status" asp-items="@ViewBag.Status" class="form-control"></select>
+                            </div>
+                            <div>
+                                <span class="text-danger" asp-validation-for="Status"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-info">Create</button>
+                        <a asp-action="Index" asp-controller="Home"
+                           class="btn btn-default float-right">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+}
+

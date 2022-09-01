@@ -21,6 +21,51 @@ namespace InventoryManagement.Web.Controllers
             _logger = logger;
             _itemService = itemService;
         }
+
+        public IActionResult Manage()
+        {
+            return View();
+        }
+
+        public JsonResult ManageAjaxDataTable(int draw, int start, int length)
+        {
+            var data = new List<object>();
+            long recordsTotal = 0;
+            long recordsFiltered = 0;
+            try
+            {
+                var items = _itemService.LoadAll();
+                recordsFiltered = items.TotalFilter;
+                recordsTotal = recordsFiltered;
+                int sl = 1 + start;
+                foreach (var item in items.Items)
+                {
+                    var str = new List<string>();
+                    str.Add(sl++.ToString());
+                    str.Add(item.Name);
+                    str.Add(InventoryHelper.GetEmumIdToValue<ItemGroup>((int)item.ItemGroup));
+                    str.Add(item.Price.ToString());
+                    str.Add("-");
+
+                    data.Add(str);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
+
+            return Json(new
+            {
+                draw = draw,
+                recordsTotal = recordsTotal,
+                recordsFiltered = recordsFiltered,
+                start = start,
+                length = length,
+                data = data
+            });
+        }
+
         public IActionResult Create()
         {
             try
@@ -44,6 +89,8 @@ namespace InventoryManagement.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    ViewBag.ItemGroup = new SelectList(InventoryHelper.LoadEmumToDictionary<ItemGroup>(), "Key", "Value", model.ItemGroup);
+                    ViewBag.Status = new SelectList(InventoryHelper.LoadEmumToDictionary<Status>(), "Key", "Value", model.Status);
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     var item = new Item
                     {
@@ -53,10 +100,10 @@ namespace InventoryManagement.Web.Controllers
                         CreateBy = userId,
                         Status = model.Status
                     };
-                    
+
                     _itemService.Create(item);
 
-                    return RedirectToAction(nameof(Create));
+                    return RedirectToAction(nameof(Manage));
                 }
             }
             catch (Exception ex)
